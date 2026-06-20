@@ -9,17 +9,14 @@
       color-scheme: light;
       --bg: #eef4fb;
       --surface: #ffffff;
-      --surface-strong: #f8fbff;
+      --surface-soft: #f8fbff;
       --text: #0f172a;
       --muted: #64748b;
       --border: rgba(148, 163, 184, 0.25);
       --shadow: 0 24px 60px rgba(15, 23, 42, 0.10);
-      --slate: #334155;
-      --slate-soft: #e2e8f0;
-      --blue: #4f46e5;
       --green: #10b981;
       --red: #ef4444;
-      --accent: #2563eb;
+      --blue: #2563eb;
     }
 
     * {
@@ -30,16 +27,16 @@
       margin: 0;
       min-height: 100%;
       font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      background: radial-gradient(circle at top, #edf2ff 0%, var(--bg) 48%, #f8fafc 100%);
+      background: radial-gradient(circle at top, #edf2ff 0%, var(--bg) 42%, #f8fafc 100%);
       color: var(--text);
     }
 
     body {
-      padding: 1.5rem;
+      padding: 1.2rem;
     }
 
     .page {
-      max-width: 1200px;
+      max-width: 1180px;
       margin: 0 auto;
     }
 
@@ -47,37 +44,35 @@
       display: grid;
       gap: 1rem;
       text-align: center;
-      margin-bottom: 2rem;
+      margin-bottom: 1.5rem;
     }
 
     .hero h1 {
       margin: 0;
-      font-size: clamp(2rem, 3.2vw, 3.5rem);
+      font-size: clamp(2rem, 3.4vw, 3.4rem);
       letter-spacing: -0.04em;
     }
 
     .hero p {
       margin: 0;
       color: var(--muted);
+      line-height: 1.75;
       max-width: 760px;
       margin-left: auto;
       margin-right: auto;
-      line-height: 1.8;
     }
 
     .hero .clock {
       display: inline-flex;
+      gap: 0.7rem;
       align-items: center;
       justify-content: center;
-      gap: 0.75rem;
       padding: 0.9rem 1.2rem;
       border-radius: 999px;
       border: 1px solid rgba(37, 99, 235, 0.16);
-      background: rgba(37, 99, 235, 0.06);
-      color: var(--slate);
-      font-weight: 600;
-      width: fit-content;
-      margin: 0 auto;
+      background: rgba(37, 99, 235, 0.07);
+      color: var(--text);
+      font-weight: 700;
     }
 
     .layout {
@@ -87,7 +82,7 @@
 
     @media (min-width: 860px) {
       .layout {
-        grid-template-columns: 1fr 1.5fr;
+        grid-template-columns: 1fr 1.35fr;
         align-items: start;
       }
     }
@@ -97,13 +92,12 @@
       border: 1px solid var(--border);
       border-radius: 28px;
       box-shadow: var(--shadow);
-      padding: 1.75rem;
+      padding: 1.7rem;
     }
 
     .panel h2 {
       margin: 0;
-      font-size: 1.5rem;
-      letter-spacing: -0.03em;
+      font-size: 1.45rem;
     }
 
     .panel p {
@@ -115,17 +109,17 @@
     .field-grid {
       display: grid;
       gap: 1rem;
-      margin-top: 1rem;
+      margin-top: 1.2rem;
     }
 
     .field {
       display: grid;
-      gap: 0.5rem;
+      gap: 0.55rem;
     }
 
     .field label {
-      font-size: 0.95rem;
       color: var(--muted);
+      font-size: 0.95rem;
     }
 
     .field input {
@@ -135,70 +129,56 @@
       border: 1px solid var(--border);
       padding: 0 1rem;
       font-size: 1rem;
-      background: #ffffff;
+      background: #fff;
       transition: border-color 0.2s ease, box-shadow 0.2s ease;
     }
 
     .field input:focus {
       outline: none;
       border-color: rgba(37, 99, 235, 0.8);
-      box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.12);
-    }
-
-    .actions {
-      display: grid;
-      gap: 1rem;
-      margin-top: 1.25rem;
+      box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.14);
     }
 
     .button-row {
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 1rem;
+      margin-top: 1.2rem;
     }
 
     button {
-      min-height: 3.4rem;
+      min-height: 3.6rem;
       border: none;
       border-radius: 999px;
-      font-weight: 700;
-      color: white;
       cursor: pointer;
-      transition: transform 0.2s ease, box-shadow 0.2s ease, opacity 0.2s ease;
+      font-weight: 700;
+      transition: transform 0.2s ease, opacity 0.2s ease;
     }
 
     button:hover {
       transform: translateY(-1px);
     }
 
-    button:active {
-      transform: translateY(0);
-    }
-
     .btn-login {
       background: linear-gradient(135deg, #22c55e 0%, #10b981 100%);
-      box-shadow: 0 18px 30px rgba(16, 185, 129, 0.18);
+      color: white;
     }
 
     .btn-logout {
       background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
-      box-shadow: 0 18px 30px rgba(239, 68, 68, 0.18);
+      color: white;
     }
 
-    .info-pill {
-      padding: 1rem 1.2rem;
-      border-radius: 20px;
-      border: 1px solid rgba(148, 163, 184, 0.22);
-      background: var(--surface-strong);
-      color: var(--slate);
-      line-height: 1.6;
-      margin-top: 1.25rem;
+    .ghost {
+      background: transparent;
+      color: var(--text);
+      border: 1px solid var(--border);
     }
 
     .status {
       min-height: 2rem;
       margin-top: 1rem;
-      font-weight: 600;
+      font-weight: 700;
     }
 
     .status.success {
@@ -209,50 +189,47 @@
       color: #b91c1c;
     }
 
+    .info-pill {
+      margin-top: 1.4rem;
+      padding: 1rem 1.1rem;
+      border-radius: 20px;
+      background: #f8fbff;
+      border: 1px solid rgba(37, 99, 235, 0.08);
+      color: #334155;
+    }
+
     .dashboard-header {
       display: flex;
       flex-wrap: wrap;
       justify-content: space-between;
-      gap: 1rem;
       align-items: center;
+      gap: 1rem;
       margin-bottom: 1.5rem;
-    }
-
-    .dashboard-header .controls {
-      display: flex;
-      gap: 0.75rem;
-      flex-wrap: wrap;
-    }
-
-    .ghost {
-      background: transparent;
-      color: var(--slate);
-      border: 1px solid var(--border);
-      box-shadow: none;
     }
 
     .stats-grid {
       display: grid;
       gap: 1rem;
       grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-      margin-bottom: 1.5rem;
+      margin-bottom: 1.4rem;
     }
 
     .stat-card {
       background: #f8fbff;
-      border-radius: 22px;
-      padding: 1rem 1.2rem;
+      padding: 1rem 1.1rem;
+      border-radius: 20px;
       border: 1px solid rgba(37, 99, 235, 0.08);
     }
 
     .stat-card span {
       display: block;
-      font-size: 0.85rem;
       color: var(--muted);
-      margin-bottom: 0.5rem;
+      font-size: 0.88rem;
+      margin-bottom: 0.45rem;
     }
 
     .stat-card strong {
+      display: block;
       font-size: 1.7rem;
       color: var(--text);
     }
@@ -261,7 +238,7 @@
       overflow-x: auto;
       border-radius: 18px;
       border: 1px solid var(--border);
-      background: #ffffff;
+      background: #fff;
     }
 
     table {
@@ -275,9 +252,8 @@
     }
 
     th, td {
-      padding: 1rem 1.2rem;
+      padding: 1rem 1.15rem;
       text-align: left;
-      color: var(--slate);
       border-bottom: 1px solid #e2e8f0;
       font-size: 0.95rem;
     }
@@ -285,7 +261,6 @@
     th {
       font-weight: 700;
       color: var(--muted);
-      letter-spacing: 0.01em;
     }
 
     tbody tr:hover {
@@ -318,14 +293,14 @@
 
     @media (max-width: 680px) {
       .panel {
-        padding: 1.25rem;
+        padding: 1.2rem;
       }
 
       .hero {
         text-align: center;
       }
 
-      .clock {
+      .hero .clock {
         width: 100%;
         justify-content: center;
       }
@@ -352,13 +327,13 @@
         margin: 0 0 1rem;
         border: 1px solid var(--border);
         border-radius: 18px;
-        background: #ffffff;
-        padding: 0.5rem 0;
+        background: #fff;
+        padding: 0.65rem 0;
       }
 
       td {
         position: relative;
-        padding-left: 50%;
+        padding-left: 48%;
         border: none;
         border-bottom: 1px solid #e2e8f0;
         white-space: normal;
@@ -384,7 +359,7 @@
     .footer {
       text-align: center;
       color: var(--muted);
-      margin-top: 2rem;
+      margin-top: 1.8rem;
       font-size: 0.95rem;
     }
   </style>
@@ -394,15 +369,15 @@
     <header class="hero">
       <div>
         <h1>Philippine Log-In / Log-Out Tracker</h1>
-        <p>Track every user action with live Philippine Standard Time timestamps, browser persistence, and automatic session validation. Everyone who logs in or out is shown below.</p>
+        <p>All login and logout events are recorded and displayed for every person, with exact Philippine Standard Time and browser persistence.</p>
       </div>
       <div class="clock">PH Time: <strong id="pstClock">--:--:--</strong></div>
     </header>
 
     <main class="layout">
-      <section class="panel controls">
+      <section class="panel">
         <h2>Control Panel</h2>
-        <p>Enter your Name and Section, then choose an action. Consecutive duplicate actions are blocked.</p>
+        <p>Enter a Name and Section, then click Log In or Log Out. Duplicate consecutive actions are blocked.</p>
 
         <div class="field-grid">
           <div class="field">
@@ -415,44 +390,34 @@
           </div>
         </div>
 
-        <div class="actions">
-          <div class="button-row">
-            <button id="loginButton" class="btn-login">Log In</button>
-            <button id="logoutButton" class="btn-logout">Log Out</button>
-          </div>
-          <div id="statusMessage" class="status"></div>
+        <div class="button-row">
+          <button id="loginButton" class="btn-login">Log In</button>
+          <button id="logoutButton" class="btn-logout">Log Out</button>
         </div>
 
+        <div id="statusMessage" class="status"></div>
+
         <div class="info-pill">
-          <p><strong>Tip:</strong> The system stores all records locally in your browser. Refreshing or closing the page preserves the full history.</p>
+          <strong>Note:</strong> This page stores data locally. Refreshing or closing will preserve history in your browser.
         </div>
       </section>
 
-      <section class="panel dashboard">
+      <section class="panel">
         <div class="dashboard-header">
           <div>
             <h2>Live Dashboard</h2>
-            <p>Global log history for every person who logs in or logs out appears instantly with the exact Philippine timestamp.</p>
+            <p>Everything logged by every user is visible here immediately, with timestamps shown in PST (UTC+8).</p>
           </div>
-          <div class="controls">
-            <button id="exportButton" class="ghost">Export as CSV</button>
+          <div class="button-row" style="grid-template-columns: auto auto; gap: 0.75rem; width: auto;">
+            <button id="exportButton" class="ghost">Export CSV</button>
             <button id="clearButton" class="ghost">Clear All</button>
           </div>
         </div>
 
         <div class="stats-grid">
-          <div class="stat-card">
-            <span>Total Records</span>
-            <strong id="totalRecords">0</strong>
-          </div>
-          <div class="stat-card">
-            <span>Active Sessions</span>
-            <strong id="activeSessions">0</strong>
-          </div>
-          <div class="stat-card">
-            <span>Unique Profiles</span>
-            <strong id="uniqueProfiles">0</strong>
-          </div>
+          <div class="stat-card"><span>Total Records</span><strong id="totalRecords">0</strong></div>
+          <div class="stat-card"><span>Active Sessions</span><strong id="activeSessions">0</strong></div>
+          <div class="stat-card"><span>Unique Profiles</span><strong id="uniqueProfiles">0</strong></div>
         </div>
 
         <div class="table-wrap">
@@ -471,9 +436,7 @@
       </section>
     </main>
 
-    <footer class="footer">
-      Open this file in any modern browser. Your history is stored locally in the browser's storage.
-    </footer>
+    <footer class="footer">Open this file in any modern browser. History is saved locally.</footer>
   </div>
 
   <script>
@@ -491,11 +454,7 @@
     const logTableBody = document.getElementById('logTableBody');
     const pstClock = document.getElementById('pstClock');
 
-    let state = {
-      users: [],
-      sessions: [],
-      logs: []
-    };
+    let state = { users: [], sessions: [], logs: [] };
 
     function normalize(value) {
       return value.trim().replace(/\s+/g, ' ').toLowerCase();
@@ -505,8 +464,8 @@
       return typeof crypto !== 'undefined' && crypto.randomUUID ? crypto.randomUUID() : `${Date.now()}-${Math.floor(Math.random() * 10000)}`;
     }
 
-    function getPhilippinesDate(base = new Date()) {
-      const utc = base.getTime() + base.getTimezoneOffset() * 60000;
+    function getPhilippineDate(date = new Date()) {
+      const utc = date.getTime() + date.getTimezoneOffset() * 60000;
       return new Date(utc + 8 * 3600000);
     }
 
@@ -520,20 +479,20 @@
       return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
     }
 
-    function formatPstNow() {
-      return formatTimestamp(getPhilippinesDate());
+    function currentPstTimestamp() {
+      return formatTimestamp(getPhilippineDate());
     }
 
     function loadState() {
-      const stored = localStorage.getItem(STORAGE_KEY);
-      if (!stored) return;
+      const saved = localStorage.getItem(STORAGE_KEY);
+      if (!saved) return;
       try {
-        const parsed = JSON.parse(stored);
+        const parsed = JSON.parse(saved);
         state.users = Array.isArray(parsed.users) ? parsed.users : [];
         state.sessions = Array.isArray(parsed.sessions) ? parsed.sessions : [];
         state.logs = Array.isArray(parsed.logs) ? parsed.logs : [];
       } catch (error) {
-        console.warn('Unable to parse saved state:', error);
+        console.warn('Could not parse saved state', error);
       }
     }
 
@@ -542,10 +501,9 @@
     }
 
     function findUser(name, section) {
-      if (!name || !section) return null;
       const normalizedName = normalize(name);
       const normalizedSection = normalize(section);
-      return state.users.find((user) => user.normalizedName === normalizedName && user.normalizedSection === normalizedSection) || null;
+      return state.users.find((item) => item.normalizedName === normalizedName && item.normalizedSection === normalizedSection) || null;
     }
 
     function getOrCreateUser(name, section) {
@@ -559,7 +517,7 @@
           section: section.trim(),
           normalizedName,
           normalizedSection,
-          createdAt: formatPstNow()
+          createdAt: currentPstTimestamp()
         };
         state.users.push(user);
       }
@@ -570,7 +528,7 @@
       return state.sessions.find((session) => session.userId === userId && !session.logoutTime) || null;
     }
 
-    function updateStatus(message, type = 'success') {
+    function setStatus(message, type = 'success') {
       statusMessage.textContent = message;
       statusMessage.className = `status ${type}`;
     }
@@ -584,16 +542,16 @@
       const name = nameInput.value.trim();
       const section = sectionInput.value.trim();
       if (!name || !section) {
-        updateStatus('Please enter both Name and Section.', 'error');
+        setStatus('Please enter both Name and Section.', 'error');
         return null;
       }
       return { name, section };
     }
 
     function renderTable() {
-      const logs = [...state.logs].sort((a, b) => a.timestamp.localeCompare(b.timestamp));
       logTableBody.innerHTML = '';
-      logs.forEach((entry) => {
+      const sortedLogs = [...state.logs].sort((a, b) => a.timestamp.localeCompare(b.timestamp));
+      sortedLogs.forEach((entry) => {
         const user = state.users.find((item) => item.id === entry.userId) || { name: 'Unknown', section: 'Unknown' };
         const row = document.createElement('tr');
         row.innerHTML = `
@@ -604,24 +562,23 @@
         `;
         logTableBody.appendChild(row);
       });
-
       totalRecords.textContent = state.logs.length;
       activeSessions.textContent = state.sessions.filter((session) => !session.logoutTime).length;
       uniqueProfiles.textContent = state.users.length;
     }
 
-    function addLogEntry(userId, action) {
-      state.logs.push({ id: createId(), userId, action, timestamp: formatPstNow() });
+    function logAction(userId, action) {
+      state.logs.push({ id: createId(), userId, action, timestamp: currentPstTimestamp() });
     }
 
-    function addSession(userId, loginTime) {
-      state.sessions.push({ id: createId(), userId, loginTime, logoutTime: null });
+    function addSession(userId) {
+      state.sessions.push({ id: createId(), userId, loginTime: currentPstTimestamp(), logoutTime: null });
     }
 
-    function closeSession(userId, logoutTime) {
+    function closeSession(userId) {
       const session = getOpenSession(userId);
       if (session) {
-        session.logoutTime = logoutTime;
+        session.logoutTime = currentPstTimestamp();
       }
     }
 
@@ -631,15 +588,14 @@
       if (!values) return;
       const user = getOrCreateUser(values.name, values.section);
       if (getOpenSession(user.id)) {
-        updateStatus('This user is already logged in. Please log out first.', 'error');
+        setStatus('This user is already logged in. Please log out first.', 'error');
         return;
       }
-      const timestamp = formatPstNow();
-      addSession(user.id, timestamp);
-      addLogEntry(user.id, 'In');
+      addSession(user.id);
+      logAction(user.id, 'In');
       saveState();
       renderTable();
-      updateStatus(`Logged in ${user.name} (${user.section}) at ${timestamp}.`, 'success');
+      setStatus(`Logged in ${user.name} (${user.section}) at ${currentPstTimestamp()}.`, 'success');
     }
 
     function handleLogout() {
@@ -648,25 +604,23 @@
       if (!values) return;
       const user = findUser(values.name, values.section);
       if (!user) {
-        updateStatus('No record found for that Name and Section. Please log in first.', 'error');
+        setStatus('No matching user record found. Please log in first.', 'error');
         return;
       }
-      const openSession = getOpenSession(user.id);
-      if (!openSession) {
-        updateStatus('No active login session exists. Please log in before logging out.', 'error');
+      if (!getOpenSession(user.id)) {
+        setStatus('No active login session exists for this user.', 'error');
         return;
       }
-      const timestamp = formatPstNow();
-      closeSession(user.id, timestamp);
-      addLogEntry(user.id, 'Out');
+      closeSession(user.id);
+      logAction(user.id, 'Out');
       saveState();
       renderTable();
-      updateStatus(`Logged out ${user.name} (${user.section}) at ${timestamp}.`, 'success');
+      setStatus(`Logged out ${user.name} (${user.section}) at ${currentPstTimestamp()}.`, 'success');
     }
 
     function exportCsv() {
       if (!state.logs.length) {
-        updateStatus('There are no records to export yet.', 'error');
+        setStatus('No records available to export.', 'error');
         return;
       }
       const header = ['Name', 'Section', 'Action', 'Timestamp'];
@@ -678,47 +632,53 @@
             return [user.name, user.section, entry.action, entry.timestamp];
           })
       );
-      const csv = rows
-        .map((row) => row.map((value) => {
-          const escaped = String(value).replace(/"/g, '""');
-          return escaped.includes(',') || escaped.includes('"') || escaped.includes('\n') ? `"${escaped}"` : escaped;
-        }).join(','))
-        .join('\n');
+      const csv = rows.map((row) => row.map((cell) => {
+        const value = String(cell).replace(/"/g, '""');
+        return /[",\n]/.test(value) ? `"${value}"` : value;
+      }).join(',')).join('\n');
       const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
       const url = URL.createObjectURL(blob);
       const link = document.createElement('a');
       link.href = url;
-      link.download = 'philippine-log-history.csv';
+      link.download = 'philippine_log_history.csv';
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
       URL.revokeObjectURL(url);
-      updateStatus('Exported history as philippine-log-history.csv.', 'success');
+      setStatus('Export completed: philippine_log_history.csv', 'success');
     }
 
     function clearHistory() {
-      if (!confirm('Clear all log history and active session data? This cannot be undone.')) return;
+      if (!confirm('Clear all stored log history? This action cannot be undone.')) return;
       state = { users: [], sessions: [], logs: [] };
       saveState();
       renderTable();
-      updateStatus('All history has been cleared.', 'success');
+      setStatus('All history has been cleared.', 'success');
     }
 
     function updateClock() {
-      pstClock.textContent = formatPstNow();
+      pstClock.textContent = currentPstTimestamp();
     }
 
-    loginButton.addEventListener('click', handleLogin);
-    logoutButton.addEventListener('click', handleLogout);
-    exportButton.addEventListener('click', exportCsv);
-    clearButton.addEventListener('click', clearHistory);
-
-    window.addEventListener('DOMContentLoaded', () => {
+    function initPage() {
       loadState();
       renderTable();
       updateClock();
+      loginButton.addEventListener('click', handleLogin);
+      logoutButton.addEventListener('click', handleLogout);
+      exportButton.addEventListener('click', exportCsv);
+      clearButton.addEventListener('click', clearHistory);
       setInterval(updateClock, 1000);
-    });
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initPage);
+    } else {
+      initPage();
+    }
   </script>
 </body>
 </html>
+"""
+Path('tmp_index_template.html').write_text(content, encoding='utf-8')
+PY
