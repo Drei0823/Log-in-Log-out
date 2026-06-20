@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Login / Logout Tracker</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>Login / Logout Tracker</h1>
+      <p>Enter your Name and Section, then log In or Out. History is stored locally in your browser.</p>
+    </header>
+
+    <section class="card action-card">
+      <div class="field-row">
+        <label for="nameInput">Name</label>
+        <input id="nameInput" type="text" placeholder="Full Name" />
+      </div>
+      <div class="field-row">
+        <label for="sectionInput">Section</label>
+        <input id="sectionInput" type="text" placeholder="Class or Department" />
+      </div>
+      <div class="button-row">
+        <button id="loginButton" class="primary">Log In</button>
+        <button id="logoutButton" class="secondary">Log Out</button>
+      </div>
+      <div id="statusMessage" class="status-message"></div>
+    </section>
+
+    <section class="card history-card">
+      <div class="history-header">
+        <h2>History</h2>
+        <button id="exportButton">Export CSV</button>
+      </div>
+      <div class="tab-row">
+        <button class="tab-button active" data-tab="logs">Action History</button>
+        <button class="tab-button" data-tab="sessions">Session History</button>
+      </div>
+      <div id="logsTab" class="tab-panel active">
+        <table>
+          <thead>
+            <tr>
+              <th>Timestamp</th>
+              <th>Name</th>
+              <th>Section</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody id="logTableBody"></tbody>
+        </table>
+      </div>
+      <div id="sessionsTab" class="tab-panel">
+        <table>
+          <thead>
+            <tr>
+              <th>Login Time</th>
+              <th>Logout Time</th>
+              <th>Name</th>
+              <th>Section</th>
+            </tr>
+          </thead>
+          <tbody id="sessionTableBody"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <footer>
+      <p>Local storage is used to persist history. Open this page in a browser and refresh to retain records.</p>
+    </footer>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
