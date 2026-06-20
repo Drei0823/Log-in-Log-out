@@ -267,7 +267,7 @@
     table {
       width: 100%;
       border-collapse: collapse;
-      min-width: 720px;
+      min-width: 100%;
     }
 
     thead {
@@ -297,6 +297,90 @@
       letter-spacing: 0.02em;
     }
 
+    @media (max-width: 860px) {
+      .layout {
+        grid-template-columns: 1fr;
+      }
+
+      .dashboard-header {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .stats-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .button-row {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 680px) {
+      .panel {
+        padding: 1.25rem;
+      }
+
+      .hero {
+        text-align: center;
+      }
+
+      .clock {
+        width: 100%;
+        justify-content: center;
+      }
+
+      th, td {
+        padding: 0.85rem 0.9rem;
+      }
+
+      .table-wrap {
+        overflow-x: hidden;
+      }
+
+      table, thead, tbody, th, td, tr {
+        display: block;
+      }
+
+      thead tr {
+        position: absolute;
+        top: -9999px;
+        left: -9999px;
+      }
+
+      tr {
+        margin: 0 0 1rem;
+        border: 1px solid var(--border);
+        border-radius: 18px;
+        background: #ffffff;
+        padding: 0.5rem 0;
+      }
+
+      td {
+        position: relative;
+        padding-left: 50%;
+        border: none;
+        border-bottom: 1px solid #e2e8f0;
+        white-space: normal;
+      }
+
+      td:last-child {
+        border-bottom: none;
+      }
+
+      td:before {
+        content: attr(data-label);
+        position: absolute;
+        left: 1rem;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 42%;
+        color: var(--muted);
+        font-weight: 700;
+        white-space: nowrap;
+      }
+    }
+
     .footer {
       text-align: center;
       color: var(--muted);
@@ -310,7 +394,7 @@
     <header class="hero">
       <div>
         <h1>Philippine Log-In / Log-Out Tracker</h1>
-        <p>Track every user action with live Philippine Standard Time timestamps, browser persistence, and automatic session validation.</p>
+        <p>Track every user action with live Philippine Standard Time timestamps, browser persistence, and automatic session validation. Everyone who logs in or out is shown below.</p>
       </div>
       <div class="clock">PH Time: <strong id="pstClock">--:--:--</strong></div>
     </header>
@@ -348,7 +432,7 @@
         <div class="dashboard-header">
           <div>
             <h2>Live Dashboard</h2>
-            <p>Every log event appears instantly with the exact Philippine timestamp.</p>
+            <p>Global log history for every person who logs in or logs out appears instantly with the exact Philippine timestamp.</p>
           </div>
           <div class="controls">
             <button id="exportButton" class="ghost">Export as CSV</button>
@@ -513,10 +597,10 @@
         const user = state.users.find((item) => item.id === entry.userId) || { name: 'Unknown', section: 'Unknown' };
         const row = document.createElement('tr');
         row.innerHTML = `
-          <td>${user.name}</td>
-          <td>${user.section}</td>
-          <td>${entry.action}</td>
-          <td>${entry.timestamp}</td>
+          <td data-label="Name">${user.name}</td>
+          <td data-label="Section">${user.section}</td>
+          <td data-label="Action">${entry.action}</td>
+          <td data-label="Timestamp (PST)">${entry.timestamp}</td>
         `;
         logTableBody.appendChild(row);
       });
