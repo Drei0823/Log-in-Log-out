@@ -3,74 +3,638 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Login / Logout Tracker</title>
-  <link rel="stylesheet" href="style.css" />
+  <title>Philippine Log-In / Log-Out Tracker</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --bg: #eef4fb;
+      --surface: #ffffff;
+      --surface-strong: #f8fbff;
+      --text: #0f172a;
+      --muted: #64748b;
+      --border: rgba(148, 163, 184, 0.25);
+      --shadow: 0 24px 60px rgba(15, 23, 42, 0.10);
+      --slate: #334155;
+      --slate-soft: #e2e8f0;
+      --blue: #4f46e5;
+      --green: #10b981;
+      --red: #ef4444;
+      --accent: #2563eb;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html, body {
+      margin: 0;
+      min-height: 100%;
+      font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: radial-gradient(circle at top, #edf2ff 0%, var(--bg) 48%, #f8fafc 100%);
+      color: var(--text);
+    }
+
+    body {
+      padding: 1.5rem;
+    }
+
+    .page {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .hero {
+      display: grid;
+      gap: 1rem;
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+
+    .hero h1 {
+      margin: 0;
+      font-size: clamp(2rem, 3.2vw, 3.5rem);
+      letter-spacing: -0.04em;
+    }
+
+    .hero p {
+      margin: 0;
+      color: var(--muted);
+      max-width: 760px;
+      margin-left: auto;
+      margin-right: auto;
+      line-height: 1.8;
+    }
+
+    .hero .clock {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.75rem;
+      padding: 0.9rem 1.2rem;
+      border-radius: 999px;
+      border: 1px solid rgba(37, 99, 235, 0.16);
+      background: rgba(37, 99, 235, 0.06);
+      color: var(--slate);
+      font-weight: 600;
+      width: fit-content;
+      margin: 0 auto;
+    }
+
+    .layout {
+      display: grid;
+      gap: 1.5rem;
+    }
+
+    @media (min-width: 860px) {
+      .layout {
+        grid-template-columns: 1fr 1.5fr;
+        align-items: start;
+      }
+    }
+
+    .panel {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 28px;
+      box-shadow: var(--shadow);
+      padding: 1.75rem;
+    }
+
+    .panel h2 {
+      margin: 0;
+      font-size: 1.5rem;
+      letter-spacing: -0.03em;
+    }
+
+    .panel p {
+      margin: 0.8rem 0 0;
+      color: var(--muted);
+      line-height: 1.75;
+    }
+
+    .field-grid {
+      display: grid;
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+
+    .field {
+      display: grid;
+      gap: 0.5rem;
+    }
+
+    .field label {
+      font-size: 0.95rem;
+      color: var(--muted);
+    }
+
+    .field input {
+      width: 100%;
+      min-height: 3.2rem;
+      border-radius: 16px;
+      border: 1px solid var(--border);
+      padding: 0 1rem;
+      font-size: 1rem;
+      background: #ffffff;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .field input:focus {
+      outline: none;
+      border-color: rgba(37, 99, 235, 0.8);
+      box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.12);
+    }
+
+    .actions {
+      display: grid;
+      gap: 1rem;
+      margin-top: 1.25rem;
+    }
+
+    .button-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+
+    button {
+      min-height: 3.4rem;
+      border: none;
+      border-radius: 999px;
+      font-weight: 700;
+      color: white;
+      cursor: pointer;
+      transition: transform 0.2s ease, box-shadow 0.2s ease, opacity 0.2s ease;
+    }
+
+    button:hover {
+      transform: translateY(-1px);
+    }
+
+    button:active {
+      transform: translateY(0);
+    }
+
+    .btn-login {
+      background: linear-gradient(135deg, #22c55e 0%, #10b981 100%);
+      box-shadow: 0 18px 30px rgba(16, 185, 129, 0.18);
+    }
+
+    .btn-logout {
+      background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+      box-shadow: 0 18px 30px rgba(239, 68, 68, 0.18);
+    }
+
+    .info-pill {
+      padding: 1rem 1.2rem;
+      border-radius: 20px;
+      border: 1px solid rgba(148, 163, 184, 0.22);
+      background: var(--surface-strong);
+      color: var(--slate);
+      line-height: 1.6;
+      margin-top: 1.25rem;
+    }
+
+    .status {
+      min-height: 2rem;
+      margin-top: 1rem;
+      font-weight: 600;
+    }
+
+    .status.success {
+      color: #047857;
+    }
+
+    .status.error {
+      color: #b91c1c;
+    }
+
+    .dashboard-header {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 1rem;
+      align-items: center;
+      margin-bottom: 1.5rem;
+    }
+
+    .dashboard-header .controls {
+      display: flex;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+    }
+
+    .ghost {
+      background: transparent;
+      color: var(--slate);
+      border: 1px solid var(--border);
+      box-shadow: none;
+    }
+
+    .stats-grid {
+      display: grid;
+      gap: 1rem;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      margin-bottom: 1.5rem;
+    }
+
+    .stat-card {
+      background: #f8fbff;
+      border-radius: 22px;
+      padding: 1rem 1.2rem;
+      border: 1px solid rgba(37, 99, 235, 0.08);
+    }
+
+    .stat-card span {
+      display: block;
+      font-size: 0.85rem;
+      color: var(--muted);
+      margin-bottom: 0.5rem;
+    }
+
+    .stat-card strong {
+      font-size: 1.7rem;
+      color: var(--text);
+    }
+
+    .table-wrap {
+      overflow-x: auto;
+      border-radius: 18px;
+      border: 1px solid var(--border);
+      background: #ffffff;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 720px;
+    }
+
+    thead {
+      background: #f8fafc;
+    }
+
+    th, td {
+      padding: 1rem 1.2rem;
+      text-align: left;
+      color: var(--slate);
+      border-bottom: 1px solid #e2e8f0;
+      font-size: 0.95rem;
+    }
+
+    th {
+      font-weight: 700;
+      color: var(--muted);
+      letter-spacing: 0.01em;
+    }
+
+    tbody tr:hover {
+      background: #f8fafc;
+    }
+
+    tbody td:last-child {
+      text-transform: uppercase;
+      letter-spacing: 0.02em;
+    }
+
+    .footer {
+      text-align: center;
+      color: var(--muted);
+      margin-top: 2rem;
+      font-size: 0.95rem;
+    }
+  </style>
 </head>
 <body>
-  <div class="container">
-    <header>
-      <h1>Login / Logout Tracker</h1>
-      <p>Enter your Name and Section, then log In or Out. History is stored locally in your browser.</p>
+  <div class="page">
+    <header class="hero">
+      <div>
+        <h1>Philippine Log-In / Log-Out Tracker</h1>
+        <p>Track every user action with live Philippine Standard Time timestamps, browser persistence, and automatic session validation.</p>
+      </div>
+      <div class="clock">PH Time: <strong id="pstClock">--:--:--</strong></div>
     </header>
 
-    <section class="card action-card">
-      <div class="field-row">
-        <label for="nameInput">Name</label>
-        <input id="nameInput" type="text" placeholder="Full Name" />
-      </div>
-      <div class="field-row">
-        <label for="sectionInput">Section</label>
-        <input id="sectionInput" type="text" placeholder="Class or Department" />
-      </div>
-      <div class="button-row">
-        <button id="loginButton" class="primary">Log In</button>
-        <button id="logoutButton" class="secondary">Log Out</button>
-      </div>
-      <div id="statusMessage" class="status-message"></div>
-    </section>
+    <main class="layout">
+      <section class="panel controls">
+        <h2>Control Panel</h2>
+        <p>Enter your Name and Section, then choose an action. Consecutive duplicate actions are blocked.</p>
 
-    <section class="card history-card">
-      <div class="history-header">
-        <h2>History</h2>
-        <button id="exportButton">Export CSV</button>
-      </div>
-      <div class="tab-row">
-        <button class="tab-button active" data-tab="logs">Action History</button>
-        <button class="tab-button" data-tab="sessions">Session History</button>
-      </div>
-      <div id="logsTab" class="tab-panel active">
-        <table>
-          <thead>
-            <tr>
-              <th>Timestamp</th>
-              <th>Name</th>
-              <th>Section</th>
-              <th>Action</th>
-            </tr>
-          </thead>
-          <tbody id="logTableBody"></tbody>
-        </table>
-      </div>
-      <div id="sessionsTab" class="tab-panel">
-        <table>
-          <thead>
-            <tr>
-              <th>Login Time</th>
-              <th>Logout Time</th>
-              <th>Name</th>
-              <th>Section</th>
-            </tr>
-          </thead>
-          <tbody id="sessionTableBody"></tbody>
-        </table>
-      </div>
-    </section>
+        <div class="field-grid">
+          <div class="field">
+            <label for="nameInput">Name</label>
+            <input id="nameInput" type="text" placeholder="Full Name" autocomplete="name" />
+          </div>
+          <div class="field">
+            <label for="sectionInput">Section</label>
+            <input id="sectionInput" type="text" placeholder="Class or Department" autocomplete="organization" />
+          </div>
+        </div>
 
-    <footer>
-      <p>Local storage is used to persist history. Open this page in a browser and refresh to retain records.</p>
+        <div class="actions">
+          <div class="button-row">
+            <button id="loginButton" class="btn-login">Log In</button>
+            <button id="logoutButton" class="btn-logout">Log Out</button>
+          </div>
+          <div id="statusMessage" class="status"></div>
+        </div>
+
+        <div class="info-pill">
+          <p><strong>Tip:</strong> The system stores all records locally in your browser. Refreshing or closing the page preserves the full history.</p>
+        </div>
+      </section>
+
+      <section class="panel dashboard">
+        <div class="dashboard-header">
+          <div>
+            <h2>Live Dashboard</h2>
+            <p>Every log event appears instantly with the exact Philippine timestamp.</p>
+          </div>
+          <div class="controls">
+            <button id="exportButton" class="ghost">Export as CSV</button>
+            <button id="clearButton" class="ghost">Clear All</button>
+          </div>
+        </div>
+
+        <div class="stats-grid">
+          <div class="stat-card">
+            <span>Total Records</span>
+            <strong id="totalRecords">0</strong>
+          </div>
+          <div class="stat-card">
+            <span>Active Sessions</span>
+            <strong id="activeSessions">0</strong>
+          </div>
+          <div class="stat-card">
+            <span>Unique Profiles</span>
+            <strong id="uniqueProfiles">0</strong>
+          </div>
+        </div>
+
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Section</th>
+                <th>Action</th>
+                <th>Timestamp (PST)</th>
+              </tr>
+            </thead>
+            <tbody id="logTableBody"></tbody>
+          </table>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      Open this file in any modern browser. Your history is stored locally in the browser's storage.
     </footer>
   </div>
 
-  <script src="script.js"></script>
+  <script>
+    const STORAGE_KEY = 'philippinesLoginLogoutTracker';
+    const nameInput = document.getElementById('nameInput');
+    const sectionInput = document.getElementById('sectionInput');
+    const loginButton = document.getElementById('loginButton');
+    const logoutButton = document.getElementById('logoutButton');
+    const exportButton = document.getElementById('exportButton');
+    const clearButton = document.getElementById('clearButton');
+    const statusMessage = document.getElementById('statusMessage');
+    const totalRecords = document.getElementById('totalRecords');
+    const activeSessions = document.getElementById('activeSessions');
+    const uniqueProfiles = document.getElementById('uniqueProfiles');
+    const logTableBody = document.getElementById('logTableBody');
+    const pstClock = document.getElementById('pstClock');
+
+    let state = {
+      users: [],
+      sessions: [],
+      logs: []
+    };
+
+    function normalize(value) {
+      return value.trim().replace(/\s+/g, ' ').toLowerCase();
+    }
+
+    function createId() {
+      return typeof crypto !== 'undefined' && crypto.randomUUID ? crypto.randomUUID() : `${Date.now()}-${Math.floor(Math.random() * 10000)}`;
+    }
+
+    function getPhilippinesDate(base = new Date()) {
+      const utc = base.getTime() + base.getTimezoneOffset() * 60000;
+      return new Date(utc + 8 * 3600000);
+    }
+
+    function formatTimestamp(date) {
+      const year = date.getFullYear();
+      const month = String(date.getMonth() + 1).padStart(2, '0');
+      const day = String(date.getDate()).padStart(2, '0');
+      const hours = String(date.getHours()).padStart(2, '0');
+      const minutes = String(date.getMinutes()).padStart(2, '0');
+      const seconds = String(date.getSeconds()).padStart(2, '0');
+      return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
+    }
+
+    function formatPstNow() {
+      return formatTimestamp(getPhilippinesDate());
+    }
+
+    function loadState() {
+      const stored = localStorage.getItem(STORAGE_KEY);
+      if (!stored) return;
+      try {
+        const parsed = JSON.parse(stored);
+        state.users = Array.isArray(parsed.users) ? parsed.users : [];
+        state.sessions = Array.isArray(parsed.sessions) ? parsed.sessions : [];
+        state.logs = Array.isArray(parsed.logs) ? parsed.logs : [];
+      } catch (error) {
+        console.warn('Unable to parse saved state:', error);
+      }
+    }
+
+    function saveState() {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+    }
+
+    function findUser(name, section) {
+      if (!name || !section) return null;
+      const normalizedName = normalize(name);
+      const normalizedSection = normalize(section);
+      return state.users.find((user) => user.normalizedName === normalizedName && user.normalizedSection === normalizedSection) || null;
+    }
+
+    function getOrCreateUser(name, section) {
+      const normalizedName = normalize(name);
+      const normalizedSection = normalize(section);
+      let user = state.users.find((item) => item.normalizedName === normalizedName && item.normalizedSection === normalizedSection);
+      if (!user) {
+        user = {
+          id: createId(),
+          name: name.trim(),
+          section: section.trim(),
+          normalizedName,
+          normalizedSection,
+          createdAt: formatPstNow()
+        };
+        state.users.push(user);
+      }
+      return user;
+    }
+
+    function getOpenSession(userId) {
+      return state.sessions.find((session) => session.userId === userId && !session.logoutTime) || null;
+    }
+
+    function updateStatus(message, type = 'success') {
+      statusMessage.textContent = message;
+      statusMessage.className = `status ${type}`;
+    }
+
+    function clearStatus() {
+      statusMessage.textContent = '';
+      statusMessage.className = 'status';
+    }
+
+    function validateInputs() {
+      const name = nameInput.value.trim();
+      const section = sectionInput.value.trim();
+      if (!name || !section) {
+        updateStatus('Please enter both Name and Section.', 'error');
+        return null;
+      }
+      return { name, section };
+    }
+
+    function renderTable() {
+      const logs = [...state.logs].sort((a, b) => a.timestamp.localeCompare(b.timestamp));
+      logTableBody.innerHTML = '';
+      logs.forEach((entry) => {
+        const user = state.users.find((item) => item.id === entry.userId) || { name: 'Unknown', section: 'Unknown' };
+        const row = document.createElement('tr');
+        row.innerHTML = `
+          <td>${user.name}</td>
+          <td>${user.section}</td>
+          <td>${entry.action}</td>
+          <td>${entry.timestamp}</td>
+        `;
+        logTableBody.appendChild(row);
+      });
+
+      totalRecords.textContent = state.logs.length;
+      activeSessions.textContent = state.sessions.filter((session) => !session.logoutTime).length;
+      uniqueProfiles.textContent = state.users.length;
+    }
+
+    function addLogEntry(userId, action) {
+      state.logs.push({ id: createId(), userId, action, timestamp: formatPstNow() });
+    }
+
+    function addSession(userId, loginTime) {
+      state.sessions.push({ id: createId(), userId, loginTime, logoutTime: null });
+    }
+
+    function closeSession(userId, logoutTime) {
+      const session = getOpenSession(userId);
+      if (session) {
+        session.logoutTime = logoutTime;
+      }
+    }
+
+    function handleLogin() {
+      clearStatus();
+      const values = validateInputs();
+      if (!values) return;
+      const user = getOrCreateUser(values.name, values.section);
+      if (getOpenSession(user.id)) {
+        updateStatus('This user is already logged in. Please log out first.', 'error');
+        return;
+      }
+      const timestamp = formatPstNow();
+      addSession(user.id, timestamp);
+      addLogEntry(user.id, 'In');
+      saveState();
+      renderTable();
+      updateStatus(`Logged in ${user.name} (${user.section}) at ${timestamp}.`, 'success');
+    }
+
+    function handleLogout() {
+      clearStatus();
+      const values = validateInputs();
+      if (!values) return;
+      const user = findUser(values.name, values.section);
+      if (!user) {
+        updateStatus('No record found for that Name and Section. Please log in first.', 'error');
+        return;
+      }
+      const openSession = getOpenSession(user.id);
+      if (!openSession) {
+        updateStatus('No active login session exists. Please log in before logging out.', 'error');
+        return;
+      }
+      const timestamp = formatPstNow();
+      closeSession(user.id, timestamp);
+      addLogEntry(user.id, 'Out');
+      saveState();
+      renderTable();
+      updateStatus(`Logged out ${user.name} (${user.section}) at ${timestamp}.`, 'success');
+    }
+
+    function exportCsv() {
+      if (!state.logs.length) {
+        updateStatus('There are no records to export yet.', 'error');
+        return;
+      }
+      const header = ['Name', 'Section', 'Action', 'Timestamp'];
+      const rows = [header].concat(
+        [...state.logs]
+          .sort((a, b) => a.timestamp.localeCompare(b.timestamp))
+          .map((entry) => {
+            const user = state.users.find((item) => item.id === entry.userId) || { name: 'Unknown', section: 'Unknown' };
+            return [user.name, user.section, entry.action, entry.timestamp];
+          })
+      );
+      const csv = rows
+        .map((row) => row.map((value) => {
+          const escaped = String(value).replace(/"/g, '""');
+          return escaped.includes(',') || escaped.includes('"') || escaped.includes('\n') ? `"${escaped}"` : escaped;
+        }).join(','))
+        .join('\n');
+      const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = 'philippine-log-history.csv';
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      URL.revokeObjectURL(url);
+      updateStatus('Exported history as philippine-log-history.csv.', 'success');
+    }
+
+    function clearHistory() {
+      if (!confirm('Clear all log history and active session data? This cannot be undone.')) return;
+      state = { users: [], sessions: [], logs: [] };
+      saveState();
+      renderTable();
+      updateStatus('All history has been cleared.', 'success');
+    }
+
+    function updateClock() {
+      pstClock.textContent = formatPstNow();
+    }
+
+    loginButton.addEventListener('click', handleLogin);
+    logoutButton.addEventListener('click', handleLogout);
+    exportButton.addEventListener('click', exportCsv);
+    clearButton.addEventListener('click', clearHistory);
+
+    window.addEventListener('DOMContentLoaded', () => {
+      loadState();
+      renderTable();
+      updateClock();
+      setInterval(updateClock, 1000);
+    });
+  </script>
 </body>
 </html>
